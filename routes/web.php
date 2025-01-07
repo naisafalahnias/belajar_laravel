@@ -111,3 +111,10 @@ route::get('/latihan/{pembeli}/{telp}/{jns}/{namabrng}/{jumlah}/{pembayaran}', f
            'Potongan : Rp. '.number_format($potongan, 0,',','.').'<br>'.
            'Total Pembayaran : Rp. '.number_format($totalPembayaran, 0,',','.');
 });
+
+route::get('/siswa', function(){
+
+    $data_siswa = ['keyndra','napis','nabila','daffa','opet','agus'];
+
+    return view('tampil',compact('data_siswa'));
+});
