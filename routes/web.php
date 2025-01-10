@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\SiswasController;
+use App\Http\Controllers\PpdbsController;
+use App\Models\Barang;
+use App\Models\Ppdb;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -118,3 +124,26 @@ route::get('/siswa', function(){
 
     return view('tampil',compact('data_siswa'));
 });
+
+
+//routing dengan model
+route::get('/post', [PostsController::class, 'menampilkan']);
+route::get('/barang', [PostsController::class, 'menampilkan2']);
+
+// route barang
+// route::get('/barang', function(){
+
+//     // $post = post::where('title','LIKE','%roblox%')->get();
+//     // $post = post::where('id',2)->get();
+//     $barang = barang::all();
+//     return view('tampil_barang',compact('barang'));
+// });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// CRUD
+route::resource('siswa', SiswasController::class);
+
+// tgs
+route::resource('ppdb', PpdbsController::class);
