@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit Data Siswa') }}</div>
 
                 <div class="card-body">
-                <form action="{{ route('ppdb.update', $ppdb->id) }}" method="post enctype="multipart/form-data">
+                <form action="{{ route('ppdb.update', $ppdb->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -18,13 +18,13 @@
                         <br>
                         <div class="form-group">
                             <label>Jenis Kelamin</label>
-                            <input type="radio" class="form-check-input" name="jenis_kelamin" value="{{ $ppdb->jenis_kelamin }}">Laki-Laki 
-                            <input type="radio" class="form-check-input" name="jenis_kelamin" value="{{ $ppdb->jenis_kelamin }}">Perempuan
+                            <input type="radio" class="form-check-input" name="jenis_kelamin" value="Laki-Laki">Laki-Laki 
+                            <input type="radio" class="form-check-input" name="jenis_kelamin" value="Perempuan">Perempuan
                         </div>
                         <br>
                         <div class="form-group">
                             <label>Agama</label>
-                            <select class="form-control" value="{{ $ppdb->agama }}" name="agama">
+                            <select class="form-control" name="agama">
                                 <option value="">Pilih Agama</option>
                                 <option value="Islam">Islam</option>
                                 <option value="Kristen">Kristen</option>
@@ -39,7 +39,7 @@
                         <br>
                         <div class="form-group">
                             <label>Alamat</label>
-                            <input type="textarea" class="form-control" value="{{ $ppdb->alamat }}" name="alamat">
+                            <textarea class="form-control" value="{{ $ppdb->alamat }}" name="alamat"></textarea>
                         </div>
                         <br>
                         <div class="form-group">
@@ -52,7 +52,7 @@
                             <input type="text" class="form-control" value="{{ $ppdb->asal_sekolah }}" name="asal_sekolah">
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary">daftar</button>
+                        <button type="submit" class="btn btn-primary">Perbarui Data</button>
                     </form>
                 </div>
             </div>
