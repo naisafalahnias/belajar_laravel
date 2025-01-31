@@ -4,8 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SiswasController;
 use App\Http\Controllers\PpdbsController;
-use App\Models\Barang;
-use App\Models\Ppdb;
+use App\Http\Controllers\PenggunasController;
+use App\Http\Controllers\TeleponsController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\KategorisController;
+use App\Http\Controllers\ProduksController;
+use App\Http\Controllers\PenerbitsController;
+use App\Http\Controllers\GenresController;
+use App\Http\Controllers\BukusController;
+use App\Http\Controllers\PembelisController;
+use App\Http\Controllers\TransaksisController;
+
 
 
 /*
@@ -147,3 +158,24 @@ route::resource('siswa', SiswasController::class);
 
 // tgs
 route::resource('ppdb', PpdbsController::class);
+
+// tgs bikin crud one to one
+route::resource('pengguna', PenggunasController::class);
+route::resource('telepon', TeleponsController::class);
+
+// tgs Many to Many
+route::resource('product', ProductsController::class);
+route::resource('customer', CustomersController::class);
+route::resource('order', OrdersController::class);
+
+//tgs one to many
+route::resource('kategori', KategorisController::class);
+route::resource('produk', ProduksController::class);
+
+//tgs campuran inimh
+route::resource('penerbit', PenerbitsController::class);
+route::resource('genre', GenresController::class);
+route::resource('buku', BukusController::class);
+route::resource('pembeli', PembelisController::class);
+route::resource('transaksi', TransaksisController::class);
+

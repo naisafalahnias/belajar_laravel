@@ -6,7 +6,15 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Tambah Data Siswa') }}</div>
-
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body">
                     <form action="{{ route('siswa.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -31,6 +39,11 @@
                                 <option value="XI RPL 2">XI RPL 2</option>
                                 <option value="XI RPL 3">XI RPL 3</option>
                             </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <input type="file" class="form-control" name="cover">
                         </div>
                         <br>
                         <button type="submit" class="btn btn-primary">Save</button>

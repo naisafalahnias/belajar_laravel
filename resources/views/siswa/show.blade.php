@@ -37,6 +37,12 @@
                             </select>
                         </div>
                         <br>
+                        <div class="form-group">
+                            <label>Cover</label>
+                            <img src="{{ asset('/images/siswa/' . $siswa->cover) }}" width="100" alt="" srcset="">
+                            <input type="file" class="form-control" name="cover" required disabled>
+                        </div>
+                        <br>
                         <a href="{{ route('siswa.index') }}" class="btn btn-primary">Back</a>
                     </form>
                 </div>
