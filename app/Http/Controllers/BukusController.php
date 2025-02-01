@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Buku;
-use App\Models\Penerbit;
 use App\Models\Genre;
-
+use App\Models\Penerbit;
 
 class BukusController extends Controller
 {
@@ -28,9 +27,9 @@ class BukusController extends Controller
      */
     public function create()
     {
-        $penerbit = Penerbit::all();
         $genre = Genre::all();
-        return view('buku.create', compact('penerbit','genre'));
+        $penerbit = Penerbit::all();
+        return view('buku.create', compact('genre','penerbit'));
     }
 
     /**
@@ -41,25 +40,23 @@ class BukusController extends Controller
      */
     public function store(Request $request)
     {
-        $buku = new Buku();
+        $this->validate($request,  [
+            'nama_buku' => 'required|max:30',  
+            'harga' => 'required|max:20', // Sesuaikan dengan batas yang Anda inginkan
+            'stok' => 'required|integer|min:0',          
+            'image' => 'required|image',
+            'id_penerbit' => 'required|max:100',                  
+            'tanggal_terbit' => 'required|date', 
+            'id_genre' => 'required|max:100',                  
+        ]);
+
+        $buku = new Buku;
         $buku->nama_buku = $request->nama_buku;
         $buku->harga = $request->harga;
         $buku->stok = $request->stok;
-        $buku->image = $request->image;
+        $buku->id_genre = $request->id_genre;
         $buku->id_penerbit = $request->id_penerbit;
         $buku->tanggal_terbit = $request->tanggal_terbit;
-        $buku->id_genre = $request->id_genre;
-
-        $this->validate($request,  [
-            'nama_buku' => 'required|max:225',  
-            'harga' => 'required|max:20',                  
-            'stok' => 'required',          
-            'image' => 'required',
-            'id_penerbit' => 'required|max:100',                  
-            'tanggal_terbit' => 'required', 
-            'id_genre' => 'required|max:100',                  
-                      
-        ]);
 
         if($request->hasFile('image')){
             $img = $request->file('image');
@@ -70,8 +67,7 @@ class BukusController extends Controller
 
         $buku->save();
 
-        return redirect()->route('buku.index')->with('success', 'Data berhasil ditambahkan');
-
+        return redirect()->route('buku.index')->with('success', 'Data berhasil di tambahkan');
     }
 
     /**
@@ -83,10 +79,9 @@ class BukusController extends Controller
     public function show($id)
     {
         $buku = Buku::findOrFail($id);
-        $penerbit = Penerbit::all();
         $genre = Genre::all();
-        return view('buku.show', compact('buku','penerbit','genre'));
-
+        $penerbit = Penerbit::all();
+        return view('buku.show', compact('buku','genre','penerbit'));
     }
 
     /**
@@ -98,10 +93,9 @@ class BukusController extends Controller
     public function edit($id)
     {
         $buku = Buku::findOrFail($id);
-        $penerbit = Penerbit::all();
         $genre = Genre::all();
-        return view('buku.edit', compact('buku','penerbit','genre'));
-
+        $penerbit = Penerbit::all();
+        return view('buku.edit', compact('buku','genre','penerbit'));
     }
 
     /**
@@ -113,27 +107,39 @@ class BukusController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,[
+            'nama_buku' => 'required|max:30',
+            'harga' => 'required|max:10',
+            'stok' => 'required|max:10',
+            'id_genre' => 'required',
+            'id_penerbit' => 'required',
+            'tanggal_terbit' => 'required',
+            'image' => 'required',
+        ]);
+
         $buku = Buku::findOrFail($id);
         $buku->nama_buku = $request->nama_buku;
         $buku->harga = $request->harga;
         $buku->stok = $request->stok;
-        $buku->image = $request->image;
+        $buku->id_genre = $request->id_genre;
         $buku->id_penerbit = $request->id_penerbit;
         $buku->tanggal_terbit = $request->tanggal_terbit;
-        $buku->id_genre = $request->id_genre;
 
         if ($request->hasFile('image')) {
             $buku->deleteImage();
             $img = $request->file('image');
-            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $name = rand(1000, 9999) . '_' . $img->getClientOriginalName();
             $img->move('images/buku', $name);
+    
             $buku->image = $name;
+        } else {
+
+            $buku->image = null;
         }
 
         $buku->save();
 
-        return redirect()->route('buku.index')->with('success', 'Data berhasil ditambahkan');
-
+        return redirect()->route('buku.index')->with('success', 'Data berhasil di edit');
     }
 
     /**
@@ -148,6 +154,5 @@ class BukusController extends Controller
         $buku->delete();
         
         return redirect()->route('buku.index')->with('success', 'Data berhasil di hapus');
-
     }
 }

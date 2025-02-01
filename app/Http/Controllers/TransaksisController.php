@@ -40,13 +40,6 @@ class TransaksisController extends Controller
      */
     public function store(Request $request)
     {
-        $transaksi = new Transaksi();
-        $transaksi->jumlah = $request->jumlah;
-        $transaksi->tanggal_transaksi = $request->tanggal_transaksi;
-        $transaksi->id_buku = $request->id_buku;
-        $transaksi->id_pembeli = $request->id_pembeli;
-        $transaksi->save();
-
         $this->validate($request,  [
             'jumlah' => 'required|max:10',  
             'tanggal_transaksi' => 'required',                  
@@ -54,6 +47,13 @@ class TransaksisController extends Controller
             'id_pembeli' => 'required|max:100',                  
             
         ]);
+
+        $transaksi = new Transaksi();
+        $transaksi->jumlah = $request->jumlah;
+        $transaksi->tanggal_transaksi = $request->tanggal_transaksi;
+        $transaksi->id_buku = $request->id_buku;
+        $transaksi->id_pembeli = $request->id_pembeli;
+        $transaksi->save();
 
         return redirect()->route('transaksi.index')->with('success', 'Data berhasil di tambahkan');
 
@@ -96,6 +96,14 @@ class TransaksisController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,  [
+            'jumlah' => 'required|max:10',  
+            'tanggal_transaksi' => 'required',                  
+            'id_buku' => 'required|max:100',          
+            'id_pembeli' => 'required|max:100',                  
+            
+        ]);
+        
         $transaksi = Transaksi::findOrFail($id);
         $transaksi->jumlah = $request->jumlah;
         $transaksi->tanggal_transaksi = $request->tanggal_transaksi;

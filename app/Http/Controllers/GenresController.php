@@ -36,6 +36,10 @@ class GenresController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,  [
+            'genre' => 'required|max:20',              
+        ]);
+
         $genre                    = new Genre;
         $genre->genre             = $request->genre;
         $genre->save();
@@ -77,6 +81,10 @@ class GenresController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,  [
+            'genre' => 'required|max:20',              
+        ]);
+        
         $genre                   = Genre::findOrfail($id);
         $genre->genre             = $request->genre;
         $genre->save();

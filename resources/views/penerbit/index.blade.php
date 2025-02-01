@@ -4,8 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Data Penerbit') }}</div>
+        <div class="card shadow-lg col-md-15" style="width: 120%;">
+            <div class="card-header text-white text-center fs-4 fw-bold" style="background-color: #ffc0cb;">
+                {{ __('Data Penerbit') }}
+            </div>
 
                 <div class="card-body">
                 @if (session('success'))

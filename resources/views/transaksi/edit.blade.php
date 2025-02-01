@@ -8,7 +8,15 @@
             <div class="card-header text-white text-center fs-4 fw-bold" style="background-color: #ffc0cb;">
                 Edit Data Transaksi
             </div>
-
+            @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body">
                     <form action="{{ route('transaksi.update', $transaksi->id) }}" method="post" enctype="multipart/form-data">
                         @csrf

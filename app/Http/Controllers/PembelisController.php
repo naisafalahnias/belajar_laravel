@@ -36,6 +36,13 @@ class PembelisController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,  [
+            'nama_pembeli' => 'required|max:30',
+            'jenis_kelamin' => 'required',
+            'telepon' => 'required|max:13',
+
+        ]);
+
         $pembeli                   = new Pembeli;
         $pembeli->nama_pembeli     = $request->nama_pembeli;
         $pembeli->jenis_kelamin    = $request->jenis_kelamin;
@@ -79,6 +86,13 @@ class PembelisController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,  [
+            'nama_pembeli' => 'required|max:30',
+            'jenis_kelamin' => 'required',
+            'telepon' => 'required|max:13',
+
+        ]);
+        
         $pembeli                   = Pembeli::findOrfail($id);
         $pembeli->nama_pembeli     = $request->nama_pembeli;
         $pembeli->jenis_kelamin    = $request->jenis_kelamin;

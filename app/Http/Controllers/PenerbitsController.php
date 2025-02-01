@@ -37,6 +37,10 @@ class PenerbitsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,  [
+            'nama_penerbit' => 'required|max:30',              
+        ]);
+
         $penerbit                    = new Penerbit;
         $penerbit->nama_penerbit     = $request->nama_penerbit;
         $penerbit->save();
@@ -78,6 +82,10 @@ class PenerbitsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,  [
+            'nama_penerbit' => 'required|max:30',              
+        ]);
+        
         $penerbit                   = Penerbit::findOrfail($id);
         $penerbit->nama_penerbit     = $request->nama_penerbit;
         $penerbit->save();

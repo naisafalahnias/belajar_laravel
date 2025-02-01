@@ -4,8 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Tambah Data Buku</div>
+        <div class="card shadow-lg col-md-15" style="width: 120%;">
+            <div class="card-header text-white text-center fs-4 fw-bold" style="background-color: #ffc0cb;">
+                Tambah Data Buku
+            </div>
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <ul>
